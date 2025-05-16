@@ -1,0 +1,141 @@
+/* Aspect ratio of the roulette table */
+:root {
+    --rlt-table-ar: 3.33;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #000;
+    font-size: 1rem;
+}
+
+.rlt-game {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 500px;
+    justify-content: space-between;
+}
+
+/* Roulette table */
+.rlt-table {
+    /* height: 150px; */
+    box-sizing: border-box;
+    border: 1px solid #000;
+    width: 180px;
+    min-width: 180px;
+    aspect-ratio: 4/10;
+    transform-origin: 50% 50%;
+    order: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table {
+        aspect-ratio: 10/3;
+        width: 500px;
+        min-width: 500px;
+        flex-direction: row;
+    }
+}
+
+/* Bet Chips */
+
+.action-container__chips {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+    flex-direction: column;
+    flex-basis: 35%;
+    width: 140px;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+@media screen and (min-width: 320px) {
+    .action-container__chips {
+        flex-basis: calc(100% - 180px);
+
+    }
+}
+
+@media screen and (min-width: 550px) {
+    .action-container__chips {
+        flex-basis: 50%;
+        justify-content: space-between;
+        order: 2;
+        flex-direction: row;
+        width: 270px;
+    }
+}
+
+
+.action-container__chip {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.action-container__chip:hover {
+    cursor: pointer;
+}
+
+.action-container__chip--selected {
+    box-shadow: 2px 0px 6px 4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 0px 6px 4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 0px 6px 4px rgba(0,0,0,0.75);
+}
+
+/* Actions Double/Clear/Undo */
+
+.action-container__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    order: 2;
+}
+
+@media screen and (min-width: 550px) {
+    .action-container__actions {
+        order: 1;
+        flex-basis: 30%;
+    }
+}
+
+.action-container__action {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.action-container__action:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.action-container__action--undo {
+    background-image: url('./assets/images/btn-undo.png');
+}
+
+.action-container__action--clear {
+    background-image: url('./assets/images/btn-clear.png');
+
+}
+
+.action-container__action--double {
+    background-image: url('./assets/images/btn-x2.png');
+}

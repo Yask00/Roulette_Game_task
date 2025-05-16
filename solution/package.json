@@ -1,0 +1,15 @@
+{
+  "name": "ecard_roulette",
+  "version": "1.0.0",
+  "description": "1. Create skelethon for rouelette table\r 2. Actions\r     * Select chip - use it when clicking down on muber\r     * Put chip\r     * Undo put chip\r     * Double all\r     * Cancel all",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server --port=8080 --entry-file=index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
