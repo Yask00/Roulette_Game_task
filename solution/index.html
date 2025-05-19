@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,111 @@
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="./script.mjs" defer></script>
 </head>
+
 <body>
     <div class="rlt-game">
         <div class="rlt-table">
-            <div>1</div>
-            <div>2</div>
-            <!-- Cell should be 32x32 and border collapsed -->
+            <div class="rlt-table__numbers">
+                <div class="rlt-table__cell rlt-table__cell--zero">0</div>
+
+                <!-- <div class="rlt-table__cell">11</div>
+                <div class="rlt-table__cell">12</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">1</div>
+                <div class="rlt-table__cell rlt-table__cell--number">2</div>
+                <div class="rlt-table__cell rlt-table__cell--number">3</div>
+
+                <!-- <div class="rlt-table__cell">16</div>
+                <div class="rlt-table__cell">17</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">4</div>
+                <div class="rlt-table__cell rlt-table__cell--number">5</div>
+                <div class="rlt-table__cell rlt-table__cell--number">6</div>
+
+                <!-- <div class="rlt-table__cell">21</div>
+                <div class="rlt-table__cell">22</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">7</div>
+                <div class="rlt-table__cell rlt-table__cell--number">8</div>
+                <div class="rlt-table__cell rlt-table__cell--number">9</div>
+
+                <!-- <div class="rlt-table__cell">26</div>
+                <div class="rlt-table__cell">27</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">10</div>
+                <div class="rlt-table__cell rlt-table__cell--number">11</div>
+                <div class="rlt-table__cell rlt-table__cell--number">12</div>
+
+                <!-- <div class="rlt-table__cell">31</div>
+                <div class="rlt-table__cell">32</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">13</div>
+                <div class="rlt-table__cell rlt-table__cell--number">14</div>
+                <div class="rlt-table__cell rlt-table__cell--number">15</div>
+
+                <!-- <div class="rlt-table__cell">36</div>
+                <div class="rlt-table__cell">37</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">16</div>
+                <div class="rlt-table__cell rlt-table__cell--number">17</div>
+                <div class="rlt-table__cell rlt-table__cell--number">18</div>
+
+                <!-- <div class="rlt-table__cell">41</div>
+                <div class="rlt-table__cell">42</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">19</div>
+                <div class="rlt-table__cell rlt-table__cell--number">20</div>
+                <div class="rlt-table__cell rlt-table__cell--number">21</div>
+
+                <!-- <div class="rlt-table__cell">46</div>
+                <div class="rlt-table__cell">47</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">22</div>
+                <div class="rlt-table__cell rlt-table__cell--number">23</div>
+                <div class="rlt-table__cell rlt-table__cell--number">24</div>
+
+                <!-- <div class="rlt-table__cell">51</div>
+                <div class="rlt-table__cell">52</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">25</div>
+                <div class="rlt-table__cell rlt-table__cell--number">26</div>
+                <div class="rlt-table__cell rlt-table__cell--number">27</div>
+
+                <!-- <div class="rlt-table__cell">56</div>
+                <div class="rlt-table__cell">57</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">28</div>
+                <div class="rlt-table__cell rlt-table__cell--number">29</div>
+                <div class="rlt-table__cell rlt-table__cell--number">30</div>
+
+                <!-- <div class="rlt-table__cell">61</div>
+                <div class="rlt-table__cell">62</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">31</div>
+                <div class="rlt-table__cell rlt-table__cell--number">32</div>
+                <div class="rlt-table__cell rlt-table__cell--number">33</div>
+
+                <!-- <div class="rlt-table__cell">66</div>
+                <div class="rlt-table__cell">67</div> -->
+                <div class="rlt-table__cell rlt-table__cell--number">34</div>
+                <div class="rlt-table__cell rlt-table__cell--number">35</div>
+                <div class="rlt-table__cell rlt-table__cell--number">36</div>
+
+                <!-- <div class="rlt-table__cell rlt-table__cell-hidden">71</div>
+                <div class="rlt-table__cell rlt-table__cell-hidden">72</div> -->
+                <div class="rlt-table__cell">2:1</div>
+                <div class="rlt-table__cell">2:1</div>
+                <div class="rlt-table__cell">2:1</div>
+
+
+
+                <!-- Cell should be 32x32 and border collapsed -->
+
+            </div>
+            <div class="rlt-table__mixed">
+                <div class="rlt-table__third-section">
+                    <div><span>1ви 12</span></div>
+                    <div><span>2ри 12</span></div>
+                    <div><span>3ти 12</span></div>
+                </div>
+                <div class="rlt-table__coinflips">
+                    <div><span>1-18</span></div>
+                    <div><span>четно</span></div>
+                    <div><span>червено</span></div>
+                    <div><span>черно</span></div>
+                    <div><span>нечетно</span></div>
+                    <div><span>19-36</span></div>
+                </div>
+            </div>
         </div>
         <div class="action-container__chips"></div>
         <div class="action-container__actions">
@@ -21,6 +121,8 @@
             <div class="action-container__action action-container__action--clear"></div>
             <div class="action-container__action action-container__action--double"></div>
         </div>
+
     </div>
 </body>
+
 </html>

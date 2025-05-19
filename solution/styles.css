@@ -18,30 +18,187 @@ body, html {
     justify-content: space-between;
 }
 
+
 /* Roulette table */
 .rlt-table {
-    /* height: 150px; */
-    box-sizing: border-box;
-    border: 1px solid #000;
-    width: 180px;
-    min-width: 180px;
-    aspect-ratio: 4/10;
-    transform-origin: 50% 50%;
-    order: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    order: 0;
 }
 
 @media screen and (min-width: 550px) {
     .rlt-table {
-        aspect-ratio: 10/3;
-        width: 500px;
-        min-width: 500px;
-        flex-direction: row;
+        flex-direction: column;
     }
 }
 
+.rlt-table__numbers {
+    /* height: 150px; */
+    position: relative;
+    width: 110px;
+    min-width: 110px;
+    aspect-ratio: 4/10;
+    transform-origin: 50% 50%;
+    order: 0;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding-top: 60px;
+    order: 1;
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table__numbers {
+        order: 0;
+    }
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table__numbers {
+        aspect-ratio: 10/1.8;
+        width: 500px;
+        min-width: 500px;
+        flex-direction: row;
+        flex-direction: column-reverse;
+        padding-top: 0px;
+        padding-left: 66px;
+    }
+}
+
+.rlt-table__cell {
+    width: 36px;
+    height: 30px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table__cell {
+        width: 33px;
+    }
+}
+
+.rlt-table__cell--zero {
+    position: absolute;
+    background-color: green;
+    border-radius: 100px 100px 0 0;
+    transform: rotate(0deg);
+    top: 0px;
+    height: 60px;
+    width: 109px;
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table__cell--zero {
+        transform: rotate(-90deg);
+        top: 18px;
+        left: -5px;
+        height: 55px;
+        width: 90px;
+    }
+}
+
+.rlt-table__cell--number {
+    background-color: #000;
+    color: #fff;
+}
+
+.rlt-table__cell--number:nth-child(2n) {
+    background-color: #f00;
+}
+
+.rlt-table__cell-hidden {
+    visibility: hidden;
+}
+
+/* ---------------------------------- */
+.rlt-table__mixed {
+    display: flex;
+    padding-top: 60px;
+    font-size: 0.8rem;
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table__mixed {
+        padding-top: 0;
+        padding-left: 66px;
+        flex-direction: column;
+    }
+}
+
+
+.rlt-table__third-section {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.rlt-table__third-section div {
+    border: 1px solid #000;
+    flex-basis: 33%;
+    display: flex;
+    align-items: center;
+}
+
+.rlt-table__third-section div span {
+    writing-mode: vertical-rl;
+    line-height: 30px;
+}
+    
+
+@media screen and (min-width: 550px) {
+    .rlt-table__third-section {
+        order: 0;
+        flex-direction: row;
+    }
+    
+    .rlt-table__third-section div {
+        justify-content: center;
+    }
+
+    .rlt-table__third-section div span {
+        writing-mode: lr;
+    }
+}
+
+.rlt-table__coinflips {
+    text-transform: uppercase;
+    order: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.rlt-table__coinflips div {
+    border: 1px solid #000;
+    flex-basis: 16.66%;
+    display: flex;
+    align-items: center;
+}
+
+.rlt-table__coinflips div span {
+    writing-mode: vertical-rl;
+    line-height: 30px;
+}
+
+@media screen and (min-width: 550px) {
+    .rlt-table__coinflips {
+       flex-direction: row;
+    }
+
+    .rlt-table__coinflips div {
+        justify-content: center;
+    }
+
+    .rlt-table__coinflips div span {
+        writing-mode: lr;
+    }
+}
+
+/* Magic numbers????? */
+
+/* ----------------------------- */
 /* Bet Chips */
 
 .action-container__chips {
@@ -74,7 +231,6 @@ body, html {
         width: 270px;
     }
 }
-
 
 .action-container__chip {
     width: 82px;
