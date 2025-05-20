@@ -16,6 +16,13 @@ body, html {
     flex-wrap: wrap;
     max-width: 500px;
     justify-content: space-between;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 
@@ -60,18 +67,22 @@ body, html {
         flex-direction: row;
         flex-direction: column-reverse;
         padding-top: 0px;
-        padding-left: 66px;
+        padding-left: 68px;
     }
 }
 
 .rlt-table__cell {
     width: 36px;
     height: 30px;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.rlt-table__cell:hover {
+    cursor: pointer;
 }
 
 @media screen and (min-width: 550px) {
@@ -87,16 +98,20 @@ body, html {
     transform: rotate(0deg);
     top: 0px;
     height: 60px;
-    width: 109px;
+    width: 108px;
+}
+
+.rlt-table__cell--border {
+    border: 1px solid #000;
 }
 
 @media screen and (min-width: 550px) {
     .rlt-table__cell--zero {
         transform: rotate(-90deg);
-        top: 18px;
-        left: -5px;
-        height: 55px;
-        width: 90px;
+        top: 20px;
+        left: -1px;
+        height: 50px;
+        width: 89px;
     }
 }
 
@@ -113,7 +128,6 @@ body, html {
     visibility: hidden;
 }
 
-/* ---------------------------------- */
 .rlt-table__mixed {
     display: flex;
     padding-top: 60px;
@@ -123,7 +137,7 @@ body, html {
 @media screen and (min-width: 550px) {
     .rlt-table__mixed {
         padding-top: 0;
-        padding-left: 66px;
+        padding-left: 68px;
         flex-direction: column;
     }
 }
@@ -137,14 +151,19 @@ body, html {
 
 .rlt-table__third-section div {
     border: 1px solid #000;
-    flex-basis: 33%;
+    flex-basis: 120px;
     display: flex;
     align-items: center;
+}
+
+.rlt-table__third-section div:hover {
+    cursor: pointer;
 }
 
 .rlt-table__third-section div span {
     writing-mode: vertical-rl;
     line-height: 30px;
+    pointer-events: none;
 }
     
 
@@ -156,6 +175,7 @@ body, html {
     
     .rlt-table__third-section div {
         justify-content: center;
+        flex-basis: 132px;
     }
 
     .rlt-table__third-section div span {
@@ -172,14 +192,19 @@ body, html {
 
 .rlt-table__coinflips div {
     border: 1px solid #000;
-    flex-basis: 16.66%;
+    flex-basis: 58px;
     display: flex;
     align-items: center;
+}
+
+.rlt-table__coinflips div:hover {
+    cursor: pointer;
 }
 
 .rlt-table__coinflips div span {
     writing-mode: vertical-rl;
     line-height: 30px;
+    pointer-events: none;
 }
 
 @media screen and (min-width: 550px) {
@@ -189,6 +214,7 @@ body, html {
 
     .rlt-table__coinflips div {
         justify-content: center;
+        flex-basis: 65px;
     }
 
     .rlt-table__coinflips div span {
@@ -196,9 +222,11 @@ body, html {
     }
 }
 
+/* TODO: */
 /* Magic numbers????? */
+/* Fix small differences in the roulette table */
+/* Refactor and cleanup */
 
-/* ----------------------------- */
 /* Bet Chips */
 
 .action-container__chips {
@@ -211,14 +239,12 @@ body, html {
     width: 140px;
     align-content: flex-start;
     align-items: flex-start;
-    padding-left: 20px;
     box-sizing: border-box;
 }
 
 @media screen and (min-width: 320px) {
     .action-container__chips {
         flex-basis: calc(100% - 180px);
-
     }
 }
 
@@ -229,6 +255,10 @@ body, html {
         order: 2;
         flex-direction: row;
         width: 270px;
+    }
+
+    .action-container__chips, .action-container__actions {
+        margin-top: 20px;
     }
 }
 
@@ -243,10 +273,22 @@ body, html {
     flex-direction: column;
     font-weight: bold;
     font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+@media screen and (min-width: 550px) {
+    .action-container__chip {
+        margin-right: 8px;
+        margin-bottom: 0px;
+    }
 }
 
 .action-container__chip:hover {
     cursor: pointer;
+}
+
+.action-container__chip:last-of-type {
+    margin-right: 0;
 }
 
 .action-container__chip--selected {
@@ -262,12 +304,16 @@ body, html {
     justify-content: space-between;
     align-items: center;
     order: 2;
+    margin-left: 0px;
+    flex-basis: 170px;
+    margin-top: 20px;
 }
 
 @media screen and (min-width: 550px) {
     .action-container__actions {
         order: 1;
         flex-basis: 30%;
+        margin-left: 10px;
     }
 }
 
@@ -279,7 +325,6 @@ body, html {
 
 .action-container__action:hover {
     cursor: pointer;
-    transform: scale(1.1);
     transition: all 0.2s ease-in-out;
 }
 
