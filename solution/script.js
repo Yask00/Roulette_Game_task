@@ -104,8 +104,8 @@ class Game {
 
   handleTableBet(sender, args) {
     // args is data-bet=id
-    if (!this.selectedChip) {
-      console.error("No chip selected");
+    if (!this.selectedChip || !args) {
+      console.error("No chip selected or no section selected");
       return;
     }
 
