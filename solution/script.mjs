@@ -6,13 +6,13 @@ const ChipColors = Object.freeze({
 
 const BetTypes = Object.freeze({
   number: 1, // 1-36
-  column: 2, // column-1, column-2, column-3
-  third: 3, // first-third, second-third, third-third
-  half: 4, // first-half, second-half
-  odd: 5, // odd
-  even: 6, // even
-  red: 7, // red
-  black: 8, // black
+  column: 2, // 37-39
+  third: 3, // 40-42
+  half: 4, // 43 and 48
+  even: 5, // 44
+  red: 6, // 45
+  black: 7, // 46
+  odd: 8, // 47
 });
 
 const actionTypes = Object.freeze({
@@ -95,51 +95,89 @@ class Game {
     this.game = game;
     this.chips = chips;
     this.bets = {};
+    this.betId = 1;
+    this.lastBetIds = [];
     this.selectedChip = null;
     game.tableBet.subscribe(this.handleTableBet.bind(this));
     game.actionBet.subscribe(this.handleAction.bind(this));
     game.chipSelect.subscribe(this.handleChipSelect.bind(this));
   }
 
-  handleTableBet(sender, args) {
-    // console.log("Table Bet Fired", sender, args);
+  handleTableBet(sender, args) { // args is data-bet=id
+    console.log("Table Bet Fired", sender, args);
     // console.log(this.selectedChip);
-    // TODO:
     if (!this.selectedChip) {
       console.error("No chip selected");
       return;
     }
 
     if (this.bets[args]) {
-      this.bets[args].push(this.selectedChip.value);
+      this.bets[args].list.push({id: this.betId, value: this.selectedChip.value});
+      this.bets[args].total += this.selectedChip.value;
     } else if (!this.bets[args]) {
-      this.bets[args] = [];
-      this.bets[args] = [this.selectedChip.value];
+      this.bets[args] = {};
+      this.bets[args].list = [{id: this.betId, value: this.selectedChip.value}];
+      this.bets[args].total = this.selectedChip.value;
     }
+    this.lastBetIds.push(this.betId);
+    ++this.betId
 
-    console.log(this.bets);
+    // console.log(this.betId);
+    // console.log(this.bets);
+
+    this.handleChipOverlay(args)
   }
 
   handleAction(sender, args) {
     switch (args) {
         case actionTypes.undo:
-            // TODO: 
+            console.log(this.lastBetIds);
+            if(!this.lastBetIds.length) {
+                console.error("No bets to undo");
+                return;
+            }
+            Object.keys(this.bets).forEach((key) => {
+              this.bets[key].list = this.bets[key].list.filter((item) => {
+                return item.id !== this.lastBetIds[this.lastBetIds.length - 1];
+              });
+              this.bets[key].total = this.bets[key].list.reduce((acc, item) => {
+                return acc + item.value;
+              }, 0);
+
+              console.log(key);
+              this.handleChipOverlay(key);
+            });
+
+            this.lastBetIds.pop();
             console.log("Undo Action Fired", sender, args);
+            console.log(this.bets);
             break;
         case actionTypes.clear:
-            this.bets = {};
+            for (let key in this.bets) {
+                this.bets[key].list = [];
+                this.bets[key].total = 0;
+                this.handleChipOverlay(key);
+            }
             console.log(this.bets);
             break;
         case actionTypes.double:
+            if(!Object.keys(this.bets).length) {
+                console.error("No bets to double");
+                return;
+            }
             Object.keys(this.bets).forEach((key) => {
-                this.bets[key] = this.bets[key].map((bet) => bet * 2);
+                this.bets[key].list = this.bets[key].list.map((item) => {
+                    return {id: item.id, value: item.value * 2};
+                });
+                this.bets[key].total = this.bets[key].total * 2;
+                this.handleChipOverlay(key);
             });
+            console.log(this.bets);
             break;
         default:
             console.error("Unknown action type");
             break;
     }
-    
   }
 
   handleChipSelect(sender, id) {
@@ -149,12 +187,6 @@ class Game {
       this.toggleSelectedChip(this.selectedChip);
     }
   }
-
-  // toggleSelect() {
-  //     this.selected = !this.selected;
-  //     this.element.classList.add("action-container__chip--selected");
-  //     this.toggleOtherChips(this.element);
-  // }
 
   toggleSelectedChip(elem) {
     this.chips.forEach((chip) => {
@@ -166,6 +198,36 @@ class Game {
         chip.element.classList.add("action-container__chip--selected");
       }
     });
+  }
+
+  handleChipOverlay(betCellId) {
+    if (!betCellId) {
+      console.error("No bet cell id");
+      return;
+    }
+
+    const betCell = document.querySelector(`[data-bet="${betCellId}"]`);
+    const chipInCell = betCell.querySelector(".chip-overlay");
+
+    // console.log(this.bets[betCellId].total);
+    
+    if (!this.bets[betCellId] || this.bets[betCellId].total === 0) {
+      chipInCell.classList = "chip-overlay";
+      chipInCell.innerHTML = "";
+      return;
+    }
+
+    chipInCell.classList = "chip-overlay";
+    chipInCell.innerHTML = this.bets[betCellId].total;
+    if (this.bets[betCellId].total === 1) {
+      chipInCell.classList.add("chip-overlay--active-1");
+    } else if (this.bets[betCellId].total === 2) {
+      chipInCell.classList.add("chip-overlay--active-2");
+    } else if (this.bets[betCellId].total === 5) {
+      chipInCell.classList.add("chip-overlay--active-5");
+    } else if (this.bets[betCellId].total === 3 || this.bets[betCellId].total === 4 || this.bets[betCellId].total > 5) {
+      chipInCell.classList.add("chip-overlay--active");
+    }
   }
 }
 
@@ -192,3 +254,5 @@ actionContainer.addEventListener("click", (event) => {
     gameActions.fireAction(null, event.target.dataset.action);
   }
 });
+
+

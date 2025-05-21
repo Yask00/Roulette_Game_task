@@ -79,10 +79,44 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .rlt-table__cell:hover {
     cursor: pointer;
+}
+
+.chip-overlay {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 90%;
+    height: 95%;
+    /* background-image: url('./assets/images/chip-background-small.png'); */
+    background-size: cover;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+    pointer-events: none;
+}
+
+.chip-overlay--active-1 {
+    background-image: url('./assets/images/chip-background-small-1.png');
+}
+
+.chip-overlay--active-2 {
+    background-image: url('./assets/images/chip-background-small-2.png');
+}
+
+.chip-overlay--active-5 {
+    background-image: url('./assets/images/chip-background-small-3.png');
+}
+
+.chip-overlay--active {
+    background-image: url('./assets/images/chip-background-small.png');
 }
 
 @media screen and (min-width: 550px) {
@@ -101,6 +135,13 @@ body, html {
     width: 108px;
 }
 
+.rlt-table__cell--zero .chip-overlay {
+    top: 18px;
+    left: 39px;
+    width: 28%;
+    height: 52%;
+}
+
 .rlt-table__cell--border {
     border: 1px solid #000;
 }
@@ -112,6 +153,13 @@ body, html {
         left: -1px;
         height: 50px;
         width: 89px;
+    }
+
+    .rlt-table__cell--zero .chip-overlay {
+        top: 10px;
+        left: 29px;
+        width: 36%;
+        height: 70%;
     }
 }
 
@@ -154,10 +202,33 @@ body, html {
     flex-basis: 120px;
     display: flex;
     align-items: center;
+    position: relative;
 }
+
+
 
 .rlt-table__third-section div:hover {
     cursor: pointer;
+}
+
+/* TODO: fix repeating code  */
+.rlt-table__third-section div .chip-overlay {
+    /* TODO: fix */
+    border: none;
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    width: 92%;
+    height: 24%;
+    
+    /* background-image: url('./assets/images/chip-background-small.png'); */
+    background-size: cover;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
 }
 
 .rlt-table__third-section div span {
@@ -178,6 +249,13 @@ body, html {
         flex-basis: 132px;
     }
 
+    .rlt-table__third-section div .chip-overlay {
+        top: 1px;
+        left: 50px;
+        width: 20%;
+        height: 87%;
+    }
+
     .rlt-table__third-section div span {
         writing-mode: lr;
     }
@@ -195,10 +273,29 @@ body, html {
     flex-basis: 58px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .rlt-table__coinflips div:hover {
     cursor: pointer;
+}
+
+.rlt-table__coinflips div .chip-overlay {
+     /* // TODO: fix  */
+    border: none;
+    position: absolute;
+    top: 16px;
+    left: 1px;
+    width: 89%;
+    height: 48%;
+    /* background-image: url('./assets/images/chip-background-small.png'); */
+    background-size: cover;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
 }
 
 .rlt-table__coinflips div span {
@@ -215,6 +312,13 @@ body, html {
     .rlt-table__coinflips div {
         justify-content: center;
         flex-basis: 65px;
+    }
+
+    .rlt-table__coinflips div .chip-overlay {
+        top: 1px;
+        left: 19px;
+        width: 40%;
+        height: 87%;
     }
 
     .rlt-table__coinflips div span {
