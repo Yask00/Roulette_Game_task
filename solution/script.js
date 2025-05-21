@@ -16,9 +16,9 @@ const BetTypes = Object.freeze({
 });
 
 const actionTypes = Object.freeze({
-    undo: "undo",
-    clear: "clear",
-    double: "double",
+  undo: "undo",
+  clear: "clear",
+  double: "double",
 });
 
 class Chip {
@@ -81,7 +81,6 @@ class GameActions {
   }
 
   fireAction(sender, args) {
-    // console.log(sender, args);
     this.actionBet.fire(sender, args);
   }
 
@@ -103,85 +102,80 @@ class Game {
     game.chipSelect.subscribe(this.handleChipSelect.bind(this));
   }
 
-  handleTableBet(sender, args) { // args is data-bet=id
-    console.log("Table Bet Fired", sender, args);
-    // console.log(this.selectedChip);
+  handleTableBet(sender, args) {
+    // args is data-bet=id
     if (!this.selectedChip) {
       console.error("No chip selected");
       return;
     }
 
     if (this.bets[args]) {
-      this.bets[args].list.push({id: this.betId, value: this.selectedChip.value});
+      this.bets[args].list.push({
+        id: this.betId,
+        value: this.selectedChip.value,
+      });
       this.bets[args].total += this.selectedChip.value;
     } else if (!this.bets[args]) {
       this.bets[args] = {};
-      this.bets[args].list = [{id: this.betId, value: this.selectedChip.value}];
+      this.bets[args].list = [
+        { id: this.betId, value: this.selectedChip.value },
+      ];
       this.bets[args].total = this.selectedChip.value;
     }
+
     this.lastBetIds.push(this.betId);
-    ++this.betId
-
-    // console.log(this.betId);
-    // console.log(this.bets);
-
-    this.handleChipOverlay(args)
+    ++this.betId;
+    this.handleChipOverlay(args);
   }
 
   handleAction(sender, args) {
     switch (args) {
-        case actionTypes.undo:
-            console.log(this.lastBetIds);
-            if(!this.lastBetIds.length) {
-                console.error("No bets to undo");
-                return;
-            }
-            Object.keys(this.bets).forEach((key) => {
-              this.bets[key].list = this.bets[key].list.filter((item) => {
-                return item.id !== this.lastBetIds[this.lastBetIds.length - 1];
-              });
-              this.bets[key].total = this.bets[key].list.reduce((acc, item) => {
-                return acc + item.value;
-              }, 0);
+      case actionTypes.undo:
+        if (!this.lastBetIds.length) {
+          console.error("No bets to undo");
+          return;
+        }
+        Object.keys(this.bets).forEach((key) => {
+          this.bets[key].list = this.bets[key].list.filter((item) => {
+            return item.id !== this.lastBetIds[this.lastBetIds.length - 1];
+          });
+          this.bets[key].total = this.bets[key].list.reduce((acc, item) => {
+            return acc + item.value;
+          }, 0);
 
-              console.log(key);
-              this.handleChipOverlay(key);
-            });
+          this.handleChipOverlay(key);
+        });
 
-            this.lastBetIds.pop();
-            console.log("Undo Action Fired", sender, args);
-            console.log(this.bets);
-            break;
-        case actionTypes.clear:
-            for (let key in this.bets) {
-                this.bets[key].list = [];
-                this.bets[key].total = 0;
-                this.handleChipOverlay(key);
-            }
-            console.log(this.bets);
-            break;
-        case actionTypes.double:
-            if(!Object.keys(this.bets).length) {
-                console.error("No bets to double");
-                return;
-            }
-            Object.keys(this.bets).forEach((key) => {
-                this.bets[key].list = this.bets[key].list.map((item) => {
-                    return {id: item.id, value: item.value * 2};
-                });
-                this.bets[key].total = this.bets[key].total * 2;
-                this.handleChipOverlay(key);
-            });
-            console.log(this.bets);
-            break;
-        default:
-            console.error("Unknown action type");
-            break;
+        this.lastBetIds.pop();
+        break;
+      case actionTypes.clear:
+        for (let key in this.bets) {
+          this.bets = {};
+          this.lastBetIds = [];
+          this.betId = 1;
+          this.handleChipOverlay(key);
+        }
+        break;
+      case actionTypes.double:
+        if (!Object.keys(this.bets).length) {
+          console.error("No bets to double");
+          return;
+        }
+        Object.keys(this.bets).forEach((key) => {
+          this.bets[key].list = this.bets[key].list.map((item) => {
+            return { id: item.id, value: item.value * 2 };
+          });
+          this.bets[key].total = this.bets[key].total * 2;
+          this.handleChipOverlay(key);
+        });
+        break;
+      default:
+        console.error("Unknown action type");
+        break;
     }
   }
 
   handleChipSelect(sender, id) {
-    // console.log("Chip Select Fired", sender, id);
     this.selectedChip = this.chips.find((chip) => chip.value == id);
     if (this.selectedChip) {
       this.toggleSelectedChip(this.selectedChip);
@@ -209,8 +203,6 @@ class Game {
     const betCell = document.querySelector(`[data-bet="${betCellId}"]`);
     const chipInCell = betCell.querySelector(".chip-overlay");
 
-    // console.log(this.bets[betCellId].total);
-    
     if (!this.bets[betCellId] || this.bets[betCellId].total === 0) {
       chipInCell.classList = "chip-overlay";
       chipInCell.innerHTML = "";
@@ -225,7 +217,11 @@ class Game {
       chipInCell.classList.add("chip-overlay--active-2");
     } else if (this.bets[betCellId].total === 5) {
       chipInCell.classList.add("chip-overlay--active-5");
-    } else if (this.bets[betCellId].total === 3 || this.bets[betCellId].total === 4 || this.bets[betCellId].total > 5) {
+    } else if (
+      this.bets[betCellId].total === 3 ||
+      this.bets[betCellId].total === 4 ||
+      this.bets[betCellId].total > 5
+    ) {
       chipInCell.classList.add("chip-overlay--active");
     }
   }
@@ -240,7 +236,7 @@ const chipsContainer = document.querySelector(".action-container__chips");
 const actionContainer = document.querySelector(".action-container__actions");
 
 rouletteTable.addEventListener("click", (event) => {
-    gameActions.fireTableBet(null, event.target.dataset.bet);
+  gameActions.fireTableBet(null, event.target.dataset.bet);
 });
 
 chipsContainer.addEventListener("click", (event) => {
@@ -254,5 +250,3 @@ actionContainer.addEventListener("click", (event) => {
     gameActions.fireAction(null, event.target.dataset.action);
   }
 });
-
-
